@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>오늘할일</title>
+    <link  th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<div>
+    <div>
+        <span id="title">오늘할일</span>
+    </div>
+    <div>
+        <form action="/User/join" method="post">
+            <div class="">
+                <table>
+                    <tr>
+                        <td><lable for="id">아이디</lable></td>
+                        <td><input type="text"></td>
+                        <td><button>증복확인</button></td>
+                    </tr>
+                    <tr>
+                        <td> <lable for="password">비밀번호</lable></td>
+                        <td><input type="password"></td>
+                    </tr>
+                    <tr>
+                        <td><lable for="nickname">닉네임</lable></td>
+                        <td><input type="text"></td>
+                    </tr>
+                </table>
+            </div>
+            <button type="submit">회원가입</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
