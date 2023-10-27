@@ -31,6 +31,13 @@ public class WeeklyBoxService {
 
     }
 
+    public void deleteUserWeeklyBox(SiteUser user){
+        Optional<UserWeeklyBox> thistask = weeklyBoxRepository.findById(user.getUserno());
+        UserWeeklyBox userWeeklyBox = thistask.get();
+
+        weeklyBoxRepository.delete(userWeeklyBox);
+    }
+
     public void addWeeklyBoxtoTask(Long id){
         Optional<UserWeeklyBox> thistask = weeklyBoxRepository.findById(id);
         UserWeeklyBox userWeeklyBox = thistask.get();
