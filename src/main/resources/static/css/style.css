@@ -1,0 +1,145 @@
+.container{
+    width: 70%;
+}
+
+.graph, .todolist{
+    width: 30%;
+    padding: 10px;
+    border: solid #50AF76 3px;
+    border-radius: 10px;
+}
+
+.addTask{
+    width: 50%;
+    padding: 20px;
+    margin-right: 10%;
+    float: right;
+    border: solid #50AF76 3px;
+    border-radius: 10px;
+}
+.graph{
+    float:left;
+}
+
+#graph_child{
+    width: 450px;
+    height: 450px;
+    background-color: #ACDF87;
+    display: flex;
+    justify-content: center;
+}
+
+#sortBox{
+    margin-right: 5px;
+}
+
+.todo_group{
+    border: 4px #50AF76 solid;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#text{
+    width: 400px;
+}
+
+
+#warning{
+    width: 100px;
+    height: 100px;
+    margin-top:40%;
+}
+
+.todolist{
+    float:right;
+}
+
+#title {
+    margin: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.date_{
+    display:flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.setting{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border-color:#ACDF87;
+    background-color: #ACDF87;
+    float:right;
+}
+
+#submit{
+    margin: 5px;
+    width: 120px;
+    height: 28px;
+    font-size: 12px;
+    background-color: #50AF76;
+    color: white;
+    float: right;
+    border:none;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,td{
+    text-align: center;
+    padding: 10px;
+    border-bottom: 2px solid #50AF76;
+}
+
+#th_done,#th_id,#th_delete,#th_imppt,#th_prept{
+    width: 50px;
+}
+
+#del_btn{
+    text-decoration: none;
+    background-color: #50AF76;
+    color: white;
+    border:none;
+    margin:3px;
+}
+
+#month,#date{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#sorting{
+    float:right;
+}
+
+.leftmain{
+    padding: 10px;
+    float: left;
+    width: 17%;
+    height: 1000px;
+    border: solid #50AF76 3px;
+    border-radius: 10px;
+}
+
+#movetoWeekly{
+    width: 200px;
+    height: 150px;
+    background-color: #50AF76;
+    color:white;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.weeklybox, .weeklylist{
+    width: 45%;
+    height: 100%;
+    border: solid #50AF76 3px;
+
+}
