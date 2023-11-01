@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link  th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="weeklylist">
+    <table>
+        <thead>
+        <tr>
+            <th id="th_delete">삭제</th>
+            <th id="th_id">#</th>
+            <th id="th_text">할일</th>
+            <th id="th_move">이동하기</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="weeklybox : ${weeklyboxs}">
+            <td id="weeklyboxDelete"><button id="del_btn"><a th:href="@{/weeklybox/delete/(id=${weeklybox.id})}">삭제</a></button></td>
+            <td id="weeklyboxId" th:text="${weeklybox.id}"></td>
+            <td id="weeklyboxTask" th:text="${weeklybox.task}"></td>
+            <td id="weeklyboxMove"><button id="move_btn"><a th:href="@{/weeklybox/move/(id=${weeklybox.id})}">이동</a></button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="weeklybox">
+    <form action="/weeklybox/add" method="post">
+        <div>
+            <table>
+                <tr>
+                    <td><lable for="task">할일</lable></td>
+                    <td><input type="text" name="task"></td>
+                </tr>
+            </table>
+        </div>
+        <button type="submit">추가하기</button>
+    </form>
+</div>
+
+</body>
+</html>

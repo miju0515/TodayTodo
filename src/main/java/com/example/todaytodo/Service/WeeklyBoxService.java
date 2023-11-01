@@ -1,15 +1,18 @@
 package com.example.todaytodo.Service;
 
+import com.example.todaytodo.Dto.UserWeeklyBoxDto;
 import com.example.todaytodo.Entity.SiteUser;
 import com.example.todaytodo.Entity.Task;
 import com.example.todaytodo.Entity.UserWeeklyBox;
 import com.example.todaytodo.Entity.WeeklyBox;
 import com.example.todaytodo.Repository.JpaTaskRepository;
+import com.example.todaytodo.Repository.UserWeeklyBoxRepository;
 import com.example.todaytodo.Repository.WeeklyBoxRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,29 +20,30 @@ import java.util.Optional;
 public class WeeklyBoxService {
     private final WeeklyBoxRepository weeklyBoxRepository;
     private final JpaTaskRepository jpaTaskRepository;
+    private final UserWeeklyBoxRepository userWeeklyBoxRepository;
 
-    public void addUserWeeklyBox(SiteUser user,String task){
-        WeeklyBox weeklyBox = weeklyBoxRepository.findByUserId(user.getUserno());
+    public void addUserWeeklyBox(Long userno, UserWeeklyBoxDto userWeeklyBoxDto){
+        WeeklyBox weeklyBox = weeklyBoxRepository.findByUserId(userno);
 
         UserWeeklyBox userWeeklyBox = UserWeeklyBox.builder()
-                .userId(user.getUserno())
+                .userId(userno)
                 .weeklyBoxId(weeklyBox.getId())
-                .task(task)
+                .task(userWeeklyBoxDto.getTask())
                 .build();
 
-        weeklyBoxRepository.save(userWeeklyBox);
+        userWeeklyBoxRepository.save(userWeeklyBox);
 
     }
 
-    public void deleteUserWeeklyBox(SiteUser user){
-        Optional<UserWeeklyBox> thistask = weeklyBoxRepository.findById(user.getUserno());
+    public void deleteUserWeeklyBox(Long id){
+        Optional<UserWeeklyBox> thistask = userWeeklyBoxRepository.findById(id);
         UserWeeklyBox userWeeklyBox = thistask.get();
 
-        weeklyBoxRepository.delete(userWeeklyBox);
+        userWeeklyBoxRepository.delete(userWeeklyBox);
     }
 
     public void addWeeklyBoxtoTask(Long id){
-        Optional<UserWeeklyBox> thistask = weeklyBoxRepository.findById(id);
+        Optional<UserWeeklyBox> thistask = userWeeklyBoxRepository.findById(id);
         UserWeeklyBox userWeeklyBox = thistask.get();
 
         LocalDate now = LocalDate.now();
@@ -53,8 +57,23 @@ public class WeeklyBoxService {
         jpaTaskRepository.save(task);
 
         userWeeklyBox.setUsed(false);
-        weeklyBoxRepository.save(userWeeklyBox);
+        userWeeklyBoxRepository.save(userWeeklyBox);
     }
 
+    public List<UserWeeklyBox> findAllWeeklyBox(Long userno){
+        return userWeeklyBoxRepository.findAllByUserIdAndUsed(userno,true);
+    }
+
+    public void comebackWeeklyBox(){
+        // task에서 찾아서 삭제하고
+        // weeklybox setUsed true로
+    }
+
+    public void autoComebackWeeklyBox(){
+        // 매일 0시마다
+        // task에서 찾아서 삭제하고
+        // weeklybox setUsed true
+
+    }
 
 }
