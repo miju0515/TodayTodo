@@ -28,5 +28,9 @@ public class SiteUser {
         this.password = password;
         this.nickname = nickname;
     }
+
+    public SiteUser() {
+
+    }
 }
 

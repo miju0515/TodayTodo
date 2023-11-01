@@ -1,24 +1,37 @@
 package com.example.todaytodo.Service;
 
+
 import com.example.todaytodo.Entity.SiteUser;
+import com.example.todaytodo.Entity.WeeklyBox;
 import com.example.todaytodo.Repository.SiteUserRepository;
+import com.example.todaytodo.Repository.WeeklyBoxRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
-@Service
-public class SiteUserService {
-    private final SiteUserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+import java.time.LocalDate;
+import java.util.Optional;
 
-    public SiteUser join(String id, String password, String nickname){
-        SiteUser user = SiteUser.builder()
-                .id(id)
-                .password(passwordEncoder.encode(password))
-                .nickname(nickname)
-                .build();
-        userRepository.save(user);
-        return user;
+@Service
+@RequiredArgsConstructor
+public class SiteUserService {
+    private final SiteUserRepository siteUserRepository;
+    private final WeeklyBoxRepository weeklyBoxRepository;
+
+    LocalDate now = LocalDate.now();
+
+    public void add(){
+        Optional<SiteUser> findUser = siteUserRepository.findById(1L);
+        if(!findUser.isPresent()){
+            SiteUser siteUser = SiteUser.builder()
+                    .id("master")
+                    .password("1234")
+                    .nickname("마스터")
+                    .build();
+
+            siteUserRepository.save(siteUser);
+
+            WeeklyBox weeklyBox = new WeeklyBox(siteUser.getUserno(),now);
+            weeklyBoxRepository.save(weeklyBox);
+        }
     }
 }
