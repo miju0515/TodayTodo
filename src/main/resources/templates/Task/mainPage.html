@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>오늘할일</title>
+    <link  th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="leftmain">
+    <p>닉네임</p>
+    <button id="movetoWeekly"><a href="/weeklybox/view">이주의박스</a></button>
+    <p>통계</p>
+    <p>설정</p>
+</div>
+<div class="container">
+    <div class="setting_div">
+        <div>
+            <span id="title">오늘할일</span>
+        </div>
+        <div class="date_">
+            <button onclick="minusdate()"><</button>
+            <span id="month"></span>
+            <span>  </span>
+            <span id="date"></span>
+            <button onclick="plusdate()">></button>
+        </div>
+    </div>
+    <div class="addTask">
+        <form action="/task/add" method="post" onsubmit="addData()">
+            <div class="todoadd">
+                <p>
+                    <lable for="preference_point">선호도</lable>
+                    <input type="number" min=0 max=5 name="preference_point" id="preference_point" value="0">
+                    <lable for="importance_point">우선도</lable>
+                    <input type="number" min=0 max=5 name="importance_point" id="importance_point" value="0">
+                </p>
+                <p>
+                    <lable for="task">할일</lable>
+                    <input type="text" name="task" id="task" placeholder="해야할 일을 적어주세요">
+                </p>
+                <p>
+                    <button type="submit" id="submit">추가하기</button>
+                </p>
+            </div>
+        </form>
+    </div>
+    <div class="main">
+        <div class="graph">
+            <div id="graph_child">
+            </div>
+        </div>
+        <div class="todolist">
+
+            <div>
+                <!--
+                                    <div >
+                                        <select th:field="*{sortingway}">
+                                            <option th:each="sortingway : ${sortingWays}" th:value="${sortingway.way}" th:text="${sortingway.displayName}">이름</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                    <select name="" id="sorting">
+                        <option value="sortbyId">기본</option>
+                        <option value="sortbyImp">우선도</option>
+                        <option value="sortbyPre">선호도</option>
+                    </select>
+                </div>
+                -->
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th id="th_done">완료</th>
+                        <th id="th_id">#</th>
+                        <th id="th_text">할일</th>
+                        <th id="th_prept">선호도</th>
+                        <th id="th_imppt">우선도</th>
+                        <th id="th_delete">삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="task : ${tasks}">
+                        <td><input type="checkbox" onclick="todoDone(this)"></td>
+                        <td id="todoid" th:text="${task.id}"></td>
+                        <td id="todotext" th:text="${task.task}"></td>
+                        <td id="todopre" th:text="${task.preference_point}"></td>
+                        <td id="todoimp" th:text="${task.importance_point}"></td>
+                        <td id="tododel"><button id="del_btn"><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+
+
+
+
+    //날짜
+    let day = new Date();
+    let month = parseInt(day.getMonth()+1);
+    let date = parseInt(day.getDate());
+    document.getElementById('month').innerHTML = month+"월  ";
+    document.getElementById('date').innerHTML = " "+date+"일";
+
+    let month_group=[31,28,31,30,31,30,31,31,30,31,30,31];
+
+    function minusdate(){
+        if(date-1==0){
+            month=month-1;
+            date=month_group[month-2];
+
+        } else{
+            date=date-1;
+        }
+        document.getElementById('month').innerHTML = month+"월  ";
+        document.getElementById('date').innerHTML = " "+date+"일";
+    }
+    function plusdate(){
+        if(date+1==month_group[month-1]){
+            month=month+1;
+            date=1;
+
+        } else{
+            date=date+1;
+        }
+        document.getElementById('month').innerHTML = month+"월  ";
+        document.getElementById('date').innerHTML = " "+date+"일";
+    }
+
+    //완료
+    function todoDone(t){
+        td=t.parentNode;
+        td.style.backgroundColor=(t.checked) ? "#E0E0E0":"#FFFFFF";
+        td.style.textDecoration=(t.checked) ? "line-through":"none";
+        tr=t.parentNode.parentNode;
+        tr.style.backgroundColor=(t.checked) ? "#E0E0E0":"#FFFFFF";
+        tr.style.textDecoration=(t.checked) ? "line-through":"none";
+
+    }
+
+    //그래프
+    var graph_=document.getElementById('graph_child');
+
+    var storedXArray = localStorage.getItem('xArray');
+    var storedYArray = localStorage.getItem('yArray');
+
+    xArray = storedXArray ? JSON.parse(storedXArray) : [];
+    yArray = storedYArray ? JSON.parse(storedYArray) : [];
+    var data_graph = [{
+        x: xArray,
+        y: yArray,
+        mode: "markers",
+        marker:{
+            size:12,
+            color:"#50AF76"
+        },
+        type: "scatter"
+    }];
+
+    var layout={
+        xaxis: {
+            range: [0,5]
+        },
+        yaxis: {
+            range: [0,5]
+        }
+    };
+
+    Plotly.newPlot(graph_,data_graph,layout);
+
+
+    function addData(){
+        var inputX = document.getElementById('preference_point').value;
+        var inputY = document.getElementById('importance_point').value;
+
+        xArray.push(inputX);
+        yArray.push(inputY);
+
+        localStorage.setItem('xArray', JSON.stringify(xArray));
+        localStorage.setItem('yArray', JSON.stringify(yArray));
+
+        Plotly.newPlot(graph_,data_graph,layout);
+    }
+
+</script>
+</body>
+</html>

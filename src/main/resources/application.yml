@@ -18,7 +18,11 @@ spring:
 
   thymeleaf:
     cache: false
-    prefix: classpath:/templates/
+    prefix:
+      classpath:/templates/
     suffix: .html
     mode: HTML
     encoding: UTF-8
+
+  main:
+    allow-bean-definition-overriding: true

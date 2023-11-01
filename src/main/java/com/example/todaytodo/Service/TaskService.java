@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -22,6 +24,18 @@ public class TaskService {
                 .importance_point(taskDto.getImportance_point())
                 .date(now)
                 .build();
+        System.out.println(taskDto.getTask());
         jpaTaskRepository.save(newtask);
     }
+
+    public List<Task> findAllTask(){
+        return jpaTaskRepository.findAll();
+    }
+
+    public void deleteTask(long id){
+        Optional<Task> object = jpaTaskRepository.findById(id);
+        Task thistask = object.get();
+        jpaTaskRepository.delete(thistask);
+    }
+
 }
