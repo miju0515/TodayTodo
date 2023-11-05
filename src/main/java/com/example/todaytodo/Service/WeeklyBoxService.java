@@ -50,9 +50,9 @@ public class WeeklyBoxService {
 
         Task task = Task.builder()
                 .task(userWeeklyBox.getTask())
-                .importance_point(0)
-                .preference_point(3)
+                .weeklyId(id)
                 .date(now)
+                .isWeeklybox(true)
                 .build();
         jpaTaskRepository.save(task);
 
@@ -64,9 +64,16 @@ public class WeeklyBoxService {
         return userWeeklyBoxRepository.findAllByUserIdAndUsed(userno,true);
     }
 
-    public void comebackWeeklyBox(){
-        // task에서 찾아서 삭제하고
-        // weeklybox setUsed true로
+    public void comebackWeeklyBox(Long id){
+        Optional<Task> object = jpaTaskRepository.findById(id);
+        Task thistask = object.get();
+
+        Optional<UserWeeklyBox> wObject = userWeeklyBoxRepository.findById(thistask.getWeeklyId());
+        UserWeeklyBox thisWeeklyBox = wObject.get();
+        thisWeeklyBox.setUsed(true);
+
+        jpaTaskRepository.delete(thistask);
+        userWeeklyBoxRepository.save(thisWeeklyBox);
     }
 
     public void autoComebackWeeklyBox(){
