@@ -9,6 +9,7 @@ import com.example.todaytodo.Repository.JpaTaskRepository;
 import com.example.todaytodo.Repository.UserWeeklyBoxRepository;
 import com.example.todaytodo.Repository.WeeklyBoxRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -76,10 +77,18 @@ public class WeeklyBoxService {
         userWeeklyBoxRepository.save(thisWeeklyBox);
     }
 
+    @Scheduled(cron="0 0 0 * * *")
     public void autoComebackWeeklyBox(){
-        // 매일 0시마다
-        // task에서 찾아서 삭제하고
-        // weeklybox setUsed true
+        LocalDate now = LocalDate.now().minusDays(1);
+        List<Task> tasks = jpaTaskRepository.findAllByIsWeeklyBoxAndDate(true,now);
+        for(Task task : tasks){
+            Optional<UserWeeklyBox> wObject = userWeeklyBoxRepository.findById(task.getWeeklyId());
+            UserWeeklyBox thisWeeklyBox = wObject.get();
+            thisWeeklyBox.setUsed(true);
+
+            jpaTaskRepository.delete(task);
+            userWeeklyBoxRepository.save(thisWeeklyBox);
+        }
 
     }
 
