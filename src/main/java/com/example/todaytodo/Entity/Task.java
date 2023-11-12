@@ -18,10 +18,10 @@ public class Task {
     private String task;
 
     @Column(name="preference_point")
-    private int preference_point;
+    private int preferencePoint;
 
     @Column(name="importance_point")
-    private int importance_point;
+    private int importancePoint;
 
     @Column(name="done")
     private boolean done;
@@ -37,10 +37,10 @@ public class Task {
 
 
     @Builder
-    public Task(String task,int preference_point,int importance_point,LocalDate date,boolean isWeeklybox,long weeklyId){
+    public Task(String task, int preferencePoint, int importancePoint, LocalDate date, boolean isWeeklybox, long weeklyId){
         this.task = task;
-        this.preference_point=preference_point;
-        this.importance_point=importance_point;
+        this.preferencePoint = preferencePoint;
+        this.importancePoint = importancePoint;
         this.date=date;
         this.isWeeklybox=isWeeklybox;
         this.weeklyId=weeklyId;

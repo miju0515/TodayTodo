@@ -20,8 +20,8 @@ public class TaskService {
     public void addTask(TaskDto taskDto){
         Task newtask = Task.builder()
                 .task(taskDto.getTask())
-                .preference_point(taskDto.getPreference_point())
-                .importance_point(taskDto.getImportance_point())
+                .preferencePoint(taskDto.getPreference_point())
+                .importancePoint(taskDto.getImportance_point())
                 .date(now)
                 .build();
         System.out.println(taskDto.getTask());
@@ -46,6 +46,14 @@ public class TaskService {
         thistask.setDate(next);
 
         jpaTaskRepository.save(thistask);
+    }
+
+    public List<Task> orderByPreference(){
+        return jpaTaskRepository.findAllByDateOrderByPreferencePoint(now);
+    }
+
+    public List<Task> orderByImportance(){
+        return jpaTaskRepository.findAllByDateOrderByImportancePoint(now);
     }
 
 
