@@ -56,5 +56,12 @@ public class TaskService {
         return jpaTaskRepository.findAllByDateOrderByImportancePoint(now);
     }
 
+    public Long todayAchievement(){
+        Long done = jpaTaskRepository.countByIsDone(true);
+        Long all = jpaTaskRepository.count();
+
+        return done/all*100;
+    }
+
 
 }
