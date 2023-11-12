@@ -38,4 +38,15 @@ public class TaskService {
         jpaTaskRepository.delete(thistask);
     }
 
+    public void postponeTask(long id){
+        Optional<Task> object = jpaTaskRepository.findById(id);
+        Task thistask = object.get();
+
+        LocalDate next = now.plusDays(1);
+        thistask.setDate(next);
+
+        jpaTaskRepository.save(thistask);
+    }
+
+
 }

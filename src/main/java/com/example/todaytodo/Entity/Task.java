@@ -47,5 +47,7 @@ public class Task {
         this.done=false;
     }
 
-
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 }
