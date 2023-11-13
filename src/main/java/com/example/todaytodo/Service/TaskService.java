@@ -29,7 +29,7 @@ public class TaskService {
     }
 
     public List<Task> findAllTask(){
-        return jpaTaskRepository.findAll();
+        return jpaTaskRepository.findAllByDate(now);
     }
 
     public void deleteTask(long id){
