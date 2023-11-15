@@ -66,29 +66,46 @@
                     </select>
                 </div>
                 -->
-
-                <table>
-                    <thead>
-                    <tr>
-                        <th id="th_done">완료</th>
-                        <th id="th_text">할일</th>
-                        <th id="th_prept">선호도</th>
-                        <th id="th_imppt">우선도</th>
-                        <th id="th_delete">삭제</th>
-                        <th id="th_postpone">미루기</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="task : ${tasks}">
-                        <td><input type="checkbox" onclick="todoDone(this)"></td>
-                        <td id="todotext" th:text="${task.task}"></td>
-                        <td id="todopre" th:text="${task.preference_point}"></td>
-                        <td id="todoimp" th:text="${task.importance_point}"></td>
-                        <td id="tododel"><button id="del_btn"><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button></td>
-                        <td id="todopostpone"> <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}"></a>미루기</button></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <th:block th:each="task : ${tasks}">
+                    <div>
+                        <p>
+                            <span>선호도 </span>
+                            <span th:text="${task.preferencePoint}"></span>
+                            <span>우선도</span>
+                            <span th:text="${task.importancePoint}"></span>
+                        </p>
+                        <p th:text="${task.task}"></p>
+                        <p>
+                            <button id="done_btn"><a th:href="@{/task/done/(id=${task.id})}">완료</a></button>
+                            <button id="del_btn"><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button>
+                            <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}"></a>미루기</button>
+                        </p>
+                    </div>
+                </th:block>
+            </div>
+            <div>
+                <!--                <table>-->
+                <!--                    <thead>-->
+                <!--                    <tr>-->
+                <!--                        <th id="th_done">완료</th>-->
+                <!--                        <th id="th_text">할일</th>-->
+                <!--                        <th id="th_prept">선호도</th>-->
+                <!--                        <th id="th_imppt">우선도</th>-->
+                <!--&lt;!&ndash;                        <th id="th_delete">삭제</th>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        <th id="th_postpone">미루기</th>&ndash;&gt;-->
+                <!--                    </tr>-->
+                <!--                    </thead>-->
+                <!--                    <tbody>-->
+                <!--                    <tr th:each="task : ${tasks}">-->
+                <!--                        <td><input type="checkbox" onclick="todoDone(this)" th:field="${task.isDone}"></td>-->
+                <!--                        <td id="todotext" th:text="${task.task}"></td>-->
+                <!--                        <td id="todopre" th:text="${task.preference_point}"></td>-->
+                <!--                        <td id="todoimp" th:text="${task.importance_point}"></td>-->
+                <!--&lt;!&ndash;                        <td id="tododel"><button id="del_btn"><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button></td>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        <td id="todopostpone"> <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}"></a>미루기</button></td>&ndash;&gt;-->
+                <!--                    </tr>-->
+                <!--                    </tbody>-->
+                <!--                </table>-->
             </div>
 
         </div>
