@@ -55,7 +55,7 @@ public class TaskService {
     }
 
     public Long todayAchievement(){
-        Long done = jpaTaskRepository.countByIsDone(true);
+        Long done = jpaTaskRepository.countByDone(true);
         Long all = jpaTaskRepository.count();
 
         return done/all*100;

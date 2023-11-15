@@ -80,7 +80,7 @@ public class WeeklyBoxService {
     @Scheduled(cron="0 0 0 * * *")
     public void autoComebackWeeklyBox(){
         LocalDate now = LocalDate.now().minusDays(1);
-        List<Task> tasks = jpaTaskRepository.findAllByIsWeeklyBoxAndDate(true,now);
+        List<Task> tasks = jpaTaskRepository.findAllByIsWeeklyboxAndDate(true,now);
         for(Task task : tasks){
             Optional<UserWeeklyBox> wObject = userWeeklyBoxRepository.findById(task.getWeeklyId());
             UserWeeklyBox thisWeeklyBox = wObject.get();

@@ -7,13 +7,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface JpaTaskRepository extends JpaRepository<Task,Long> {
-    List<Task> findAllByIsWeeklyBoxAndDate(boolean isWeeklyBox, LocalDate now);
+    List<Task> findAllByIsWeeklyboxAndDate(boolean isWeeklyBox, LocalDate now);
 
     List<Task> findAllByDateOrderByPreferencePoint(LocalDate now);
 
     List<Task> findAllByDateOrderByImportancePoint(LocalDate now);
 
-    Long countByIsDone(boolean isdone);
+    Long countByDone(boolean isdone);
 
     List<Task> findAllByDate(LocalDate now);
 }
