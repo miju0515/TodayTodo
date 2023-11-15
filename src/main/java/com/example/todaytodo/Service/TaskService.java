@@ -33,14 +33,12 @@ public class TaskService {
     }
 
     public void deleteTask(long id){
-        Optional<Task> object = jpaTaskRepository.findById(id);
-        Task thistask = object.get();
+        Task thistask = findTask(id);
         jpaTaskRepository.delete(thistask);
     }
 
     public void postponeTask(long id){
-        Optional<Task> object = jpaTaskRepository.findById(id);
-        Task thistask = object.get();
+        Task thistask = findTask(id);
 
         LocalDate next = now.plusDays(1);
         thistask.setDate(next);
