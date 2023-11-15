@@ -43,4 +43,10 @@ public class TaskController {
         taskService.deleteTask(id);
         return "redirect:/task/group";
     }
+
+    @GetMapping("/postpone")
+    public String postponeTask(long id){
+        taskService.postponeTask(id);
+        return "redirect:/task/group";
+    }
 }

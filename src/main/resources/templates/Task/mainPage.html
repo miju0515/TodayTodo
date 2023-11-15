@@ -71,21 +71,21 @@
                     <thead>
                     <tr>
                         <th id="th_done">완료</th>
-                        <th id="th_id">#</th>
                         <th id="th_text">할일</th>
                         <th id="th_prept">선호도</th>
                         <th id="th_imppt">우선도</th>
                         <th id="th_delete">삭제</th>
+                        <th id="th_postpone">미루기</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="task : ${tasks}">
                         <td><input type="checkbox" onclick="todoDone(this)"></td>
-                        <td id="todoid" th:text="${task.id}"></td>
                         <td id="todotext" th:text="${task.task}"></td>
                         <td id="todopre" th:text="${task.preference_point}"></td>
                         <td id="todoimp" th:text="${task.importance_point}"></td>
                         <td id="tododel"><button id="del_btn"><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button></td>
+                        <td id="todopostpone"> <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}"></a>미루기</button></td>
                     </tr>
                     </tbody>
                 </table>
