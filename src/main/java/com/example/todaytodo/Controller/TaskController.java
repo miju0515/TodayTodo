@@ -49,4 +49,10 @@ public class TaskController {
         taskService.postponeTask(id);
         return "redirect:/task/group";
     }
+
+    @GetMapping("/done")
+    public String doneTask(long id){
+        taskService.doneTask(id);
+        return "redirect:/task/group";
+    }
 }
