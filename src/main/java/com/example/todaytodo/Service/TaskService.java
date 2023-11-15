@@ -63,5 +63,22 @@ public class TaskService {
         return done/all*100;
     }
 
+    public void doneTask(long id){
+        Task task = findTask(id);
+
+        task.setDone(true);
+
+        jpaTaskRepository.save(task);
+    }
+
+    public Task findTask(long id){
+        Optional<Task> object = jpaTaskRepository.findById(id);
+        if(object.isPresent()){
+            return object.get();
+        }
+        return null;
+    }
+
+
 
 }

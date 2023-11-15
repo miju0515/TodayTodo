@@ -50,4 +50,8 @@ public class Task {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
 }
