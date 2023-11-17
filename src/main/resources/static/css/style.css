@@ -1,24 +1,42 @@
 .container{
-    width: 70%;
+    height: 900px;
 }
 
-.graph, .todolist{
-    width: 30%;
+.todolist{
+    width: 500px;
+    height: 460px;
+    margin: 30px;
     padding: 10px;
     border: solid #50AF76 3px;
     border-radius: 10px;
+    overflow: auto;
+}
+
+.tasks{
+    margin:10px;
+    padding: 10px;
+    background-color: #50AF76;
+    color: white;
+    border-radius: 10px;
+    height: 150px;
+}
+
+.graph{
+    width: 460px;
+    border: solid #50AF76 3px;
+    border-radius: 10px;
+    padding:5px;
+    margin:30px;
+    float:left;
 }
 
 .addTask{
-    width: 50%;
+    width: 1020px;
     padding: 20px;
-    margin-right: 10%;
+    margin: 30px;
     float: right;
     border: solid #50AF76 3px;
     border-radius: 10px;
-}
-.graph{
-    float:left;
 }
 
 #graph_child{
@@ -55,9 +73,14 @@
 }
 
 #title {
-    margin: 10px;
+    margin-left: 30px;
+    margin-top: 10px;
     font-size: 30px;
     font-weight: bold;
+}
+
+#tasktext{
+    font-size: 20px;
 }
 
 .date_{
@@ -75,7 +98,7 @@
     float:right;
 }
 
-#submit{
+#submit, #movetoTask, #weekly_del, #move_btn{
     margin: 5px;
     width: 120px;
     height: 28px;
@@ -84,6 +107,19 @@
     color: white;
     float: right;
     border:none;
+    text-decoration-line: none;
+}
+
+#del_btn, #done_btn, #post_btn{
+    margin: 5px;
+    width: 120px;
+    height: 28px;
+    font-size: 12px;
+    background-color: white;
+    color: #50AF76;
+    float: right;
+    border:none;
+    text-decoration-line: none;
 }
 
 table {
@@ -97,19 +133,11 @@ th,td{
     border-bottom: 2px solid #50AF76;
 }
 
-#th_done,#th_id,#th_delete,#th_imppt,#th_prept{
+#th_done, #th_id, #th_delete, #th_imppt, #th_prept{
     width: 50px;
 }
 
-#del_btn{
-    text-decoration: none;
-    background-color: #50AF76;
-    color: white;
-    border:none;
-    margin:3px;
-}
-
-#month,#date{
+#month, #date{
     font-size: 20px;
     font-weight: bold;
 }
@@ -121,8 +149,8 @@ th,td{
 .leftmain{
     padding: 10px;
     float: left;
-    width: 17%;
-    height: 1000px;
+    width: 300px;
+    height: 820px;
     border: solid #50AF76 3px;
     border-radius: 10px;
 }
@@ -135,9 +163,20 @@ th,td{
     text-decoration: none;
     font-size: 28px;
     font-weight: bold;
+    text-decoration-line: none;
+}
+
+#movetoWeekly:visited{
+    color: white;
+}
+
+#post_btn:visited, #done_btn:visited, #del_btn:visited{
+    color: #50AF76;
 }
 
 .weeklybox, .weeklylist{
+    margin-left: 200px;
+    margin-top: 50px;
     width: 45%;
     height: 100%;
     border: solid #50AF76 3px;

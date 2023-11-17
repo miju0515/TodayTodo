@@ -9,12 +9,18 @@
     <link  th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
+<div>
+    <span id="title">오늘할일</span>
+</div>
+<div>
+    <p id="weeklybox">이주의박스</p>
+    <button id="movetoTask"><a href="/task/group">홈</a></button>
+</div>
 <div class="weeklylist">
     <table>
         <thead>
         <tr>
             <th id="th_delete">삭제</th>
-            <th id="th_id">#</th>
             <th id="th_text">할일</th>
             <th id="th_move">이동하기</th>
 
@@ -22,8 +28,7 @@
         </thead>
         <tbody>
         <tr th:each="weeklybox : ${weeklyboxs}">
-            <td id="weeklyboxDelete"><button id="del_btn"><a th:href="@{/weeklybox/delete/(id=${weeklybox.id})}">삭제</a></button></td>
-            <td id="weeklyboxId" th:text="${weeklybox.id}"></td>
+            <td id="weeklyboxDelete"><button id="weekly_del"><a th:href="@{/weeklybox/delete/(id=${weeklybox.id})}">삭제</a></button></td>
             <td id="weeklyboxTask" th:text="${weeklybox.task}"></td>
             <td id="weeklyboxMove"><button id="move_btn"><a th:href="@{/weeklybox/move/(id=${weeklybox.id})}">이동</a></button></td>
         </tr>

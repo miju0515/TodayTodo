@@ -18,11 +18,11 @@
             <span id="title">오늘할일</span>
         </div>
         <div class="date_">
-            <button onclick="minusdate()"><</button>
+            <button onclick="minusdate()" id="minusDate"><</button>
             <span id="month"></span>
             <span>  </span>
             <span id="date"></span>
-            <button onclick="plusdate()">></button>
+            <button onclick="plusdate()" id="plusDate">></button>
         </div>
     </div>
     <div class="addTask">
@@ -67,16 +67,16 @@
                 </div>
                 -->
                 <th:block th:each="task : ${tasks}">
-                    <div>
+                    <div class="tasks">
                         <p>
                             <span>선호도 </span>
                             <span th:text="${task.preferencePoint}"></span>
                             <span>우선도</span>
                             <span th:text="${task.importancePoint}"></span>
                         </p>
-                        <p th:text="${task.task}"></p>
+                        <p th:text="${task.task}" id="tasktext"></p>
                         <p>
-                            <button id="done_btn"><a th:href="@{/task/done/(id=${task.id})}">완료</a></button>
+                            <button id="done_btn" onclick="todoDone(this)"><a th:href="@{/task/done/(id=${task.id})}">완료</a></button>
                             <button id="del_btn"><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button>
                             <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}"></a>미루기</button>
                         </p>
@@ -152,15 +152,7 @@
     }
 
     //완료
-    function todoDone(t){
-        td=t.parentNode;
-        td.style.backgroundColor=(t.checked) ? "#E0E0E0":"#FFFFFF";
-        td.style.textDecoration=(t.checked) ? "line-through":"none";
-        tr=t.parentNode.parentNode;
-        tr.style.backgroundColor=(t.checked) ? "#E0E0E0":"#FFFFFF";
-        tr.style.textDecoration=(t.checked) ? "line-through":"none";
 
-    }
 
     //그래프
     var graph_=document.getElementById('graph_child');
