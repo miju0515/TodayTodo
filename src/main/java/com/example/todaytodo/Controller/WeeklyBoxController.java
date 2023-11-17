@@ -1,11 +1,10 @@
 package com.example.todaytodo.Controller;
 
 import com.example.todaytodo.Dto.UserWeeklyBoxDto;
-import com.example.todaytodo.Entity.SiteUser;
 import com.example.todaytodo.Entity.UserWeeklyBox;
-import com.example.todaytodo.Entity.WeeklyBox;
 import com.example.todaytodo.Service.WeeklyBoxService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,5 +48,27 @@ public class WeeklyBoxController {
         return "redirect:/weeklybox/view";
     }
 
+    @Scheduled(cron = "0 */5 * * * *")
+    public void autoComeback(){
+        weeklyBoxService.autoComebackWeeklyBox();
+        System.out.println("comeback");
+        redirectPage();
+    }
+
+    public String redirectPage(){
+        return "redirect:/task/group";
+    }
+
+    @Scheduled(cron = "0 */8 * * * *")
+    public void autoReset(){
+        weeklyBoxService.resetWeeklyBox();
+        System.out.println("reset");
+        redirectPage();
+    }
+
+    @Scheduled(cron = "0 */1 * * * *")
+    public void exercise(){
+        System.out.println("cron");
+    }
 
 }
