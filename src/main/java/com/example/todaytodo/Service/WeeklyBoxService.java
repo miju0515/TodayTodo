@@ -77,9 +77,8 @@ public class WeeklyBoxService {
         userWeeklyBoxRepository.save(thisWeeklyBox);
     }
 
-    @Scheduled(cron="0 0 0 * * *")
     public void autoComebackWeeklyBox(){
-        LocalDate now = LocalDate.now().minusDays(1);
+        LocalDate now = LocalDate.now();
         List<Task> tasks = jpaTaskRepository.findAllByIsWeeklyboxAndDate(true,now);
         for(Task task : tasks){
             Optional<UserWeeklyBox> wObject = userWeeklyBoxRepository.findById(task.getWeeklyId());
@@ -92,7 +91,6 @@ public class WeeklyBoxService {
 
     }
 
-    @Scheduled(cron="0 0 0 * * 1")
     public void resetWeeklyBox(){
         userWeeklyBoxRepository.deleteAll();
     }
