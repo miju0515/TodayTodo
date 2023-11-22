@@ -28,3 +28,4 @@ spring:
 
 server:
   address: 3.38.81.31
+  port: 8080
