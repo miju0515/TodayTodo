@@ -28,8 +28,8 @@ public class TaskService {
         jpaTaskRepository.save(newtask);
     }
 
-    public List<Task> findAllTask(){
-        return jpaTaskRepository.findAllByDate(now);
+    public List<Task> findAllTask(LocalDate dateInfo){
+        return jpaTaskRepository.findAllByDate(dateInfo);
     }
 
     public void deleteTask(long id){
@@ -37,10 +37,10 @@ public class TaskService {
         jpaTaskRepository.delete(thistask);
     }
 
-    public void postponeTask(long id){
+    public void postponeTask(long id,LocalDate dateInfo){
         Task thistask = findTask(id);
 
-        LocalDate next = now.plusDays(1);
+        LocalDate next = dateInfo.plusDays(1);
         thistask.setDate(next);
 
         jpaTaskRepository.save(thistask);

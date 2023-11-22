@@ -19,11 +19,12 @@
             <span id="title">오늘할일</span>
         </div>
         <div class="date_">
-            <button onclick="minusdate()" id="minusDate"><</button>
-            <span id="month"></span>
-            <span>  </span>
-            <span id="date"></span>
-            <button onclick="plusdate()" id="plusDate">></button>
+            <button id="minusDate"><a th:href="@{/task/minusDate}"><</a></button>
+            <span class="date" th:text="${month}"></span>
+            <span class="date">월 </span> &nbsp;&nbsp;
+            <span class="date" th:text="${date}"></span>
+            <span class="date">일</span>
+            <button id="plusDate"><a th:href="@{/task/plusDate}"> > </a></button>
         </div>
     </div>
     <div class="addTask">
@@ -126,36 +127,36 @@
 
 
     //날짜
-    let day = new Date();
-    let month = parseInt(day.getMonth()+1);
-    let date = parseInt(day.getDate());
-    document.getElementById('month').innerHTML = month+"월  ";
-    document.getElementById('date').innerHTML = " "+date+"일";
-
-    let month_group=[31,28,31,30,31,30,31,31,30,31,30,31];
-
-    function minusdate(){
-        if(date-1===0){
-            month=month-1;
-            date=month_group[month-2];
-
-        } else{
-            date=date-1;
-        }
-        document.getElementById('month').innerHTML = month+"월  ";
-        document.getElementById('date').innerHTML = " "+date+"일";
-    }
-    function plusdate(){
-        if(date+1===month_group[month-1]){
-            month=month+1;
-            date=1;
-
-        } else{
-            date=date+1;
-        }
-        document.getElementById('month').innerHTML = month+"월  ";
-        document.getElementById('date').innerHTML = " "+date+"일";
-    }
+    // let day = new Date();
+    // let month = parseInt(day.getMonth()+1);
+    // let date = parseInt(day.getDate());
+    // document.getElementById('month').innerHTML = month+"월  ";
+    // document.getElementById('date').innerHTML = " "+date+"일";
+    //
+    // let month_group=[31,28,31,30,31,30,31,31,30,31,30,31];
+    //
+    // function minusdate(){
+    //     if(date-1===0){
+    //         month=month-1;
+    //         date=month_group[month-2];
+    //
+    //     } else{
+    //         date=date-1;
+    //     }
+    //     document.getElementById('month').innerHTML = month+"월  ";
+    //     document.getElementById('date').innerHTML = " "+date+"일";
+    // }
+    // function plusdate(){
+    //     if(date+1===month_group[month-1]){
+    //         month=month+1;
+    //         date=1;
+    //
+    //     } else{
+    //         date=date+1;
+    //     }
+    //     document.getElementById('month').innerHTML = month+"월  ";
+    //     document.getElementById('date').innerHTML = " "+date+"일";
+    // }
 
     //완료,weeklybox
     document.querySelectorAll(".tasks").forEach(function (item){

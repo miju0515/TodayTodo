@@ -148,7 +148,7 @@ th,td{
     width: 50px;
 }
 
-#month, #date{
+.date {
     font-size: 20px;
     font-weight: bold;
 }
