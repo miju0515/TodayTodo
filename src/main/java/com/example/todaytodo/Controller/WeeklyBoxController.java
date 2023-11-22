@@ -71,4 +71,10 @@ public class WeeklyBoxController {
         System.out.println("cron");
     }
 
+    @PostMapping("/comeback")
+    public String comeback(long id){
+        weeklyBoxService.comebackWeeklyBox(id);
+        return "redirect:/task/group";
+    }
+
 }
