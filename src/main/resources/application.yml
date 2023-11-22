@@ -25,3 +25,6 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+
+server:
+  address: 3.38.81.31
