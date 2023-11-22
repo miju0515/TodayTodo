@@ -11,6 +11,7 @@
     <button id="movetoWeekly"><a href="/weeklybox/view">이주의박스</a></button>
     <p>통계</p>
     <p>설정</p>
+    <p><button onclick="resetData()">reset</button></p>
 </div>
 <div class="container">
     <div class="setting_div">
@@ -73,15 +74,17 @@
                         <p>
                             <span>선호도 </span>
                             <span th:text="${task.preferencePoint}"></span>
+                            <input type="hidden" id="pfp" th:value="${task.preferencePoint}">
                             <span>우선도</span>
                             <span th:text="${task.importancePoint}"></span>
+                            <input type="hidden" id="ipp" th:value="${task.importancePoint}">
                         </p>
                         <p th:text="${task.task}" id="tasktext"></p>
                         <p>
-                            <button id="done_btn" onclick="todoDone(this)"><a th:href="@{/task/done/(id=${task.id})}">완료</a></button>
-                            <button id="del_btn"><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button>
                             <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}"></a>미루기</button>
                             <button id="comeback" style="display: none"><a th:href="@{/weeklybox/comeback/(id=${task.id})}"></a></button>
+                            <button id="done_btn"><a th:href="@{/task/done/(id=${task.id})}">완료</a></button>
+                            <button id="del_btn" onclick="deleteData()" ><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button>
                         </p>
                     </div>
                 </th:block>
@@ -132,7 +135,7 @@
     let month_group=[31,28,31,30,31,30,31,31,30,31,30,31];
 
     function minusdate(){
-        if(date-1==0){
+        if(date-1===0){
             month=month-1;
             date=month_group[month-2];
 
@@ -143,7 +146,7 @@
         document.getElementById('date').innerHTML = " "+date+"일";
     }
     function plusdate(){
-        if(date+1==month_group[month-1]){
+        if(date+1===month_group[month-1]){
             month=month+1;
             date=1;
 
@@ -159,8 +162,6 @@
         var done = document.getElementById("doneInput").value;
         var isWeekly = document.getElementById("weeklyInput").value;
         var button = item.querySelector("#done_btn");
-        console.log("Done: ",done);
-        console.log("IsWeekly:",isWeekly);
 
         if(done==="true"){
             item.style.backgroundColor="#D9D9D9";
@@ -220,6 +221,41 @@
         Plotly.newPlot(graph_,data_graph,layout);
     }
 
+
+    function deleteData(){
+        var thisX = document.getElementById('pfp').value;
+        var thisY = document.getElementById('ipp').value;
+
+        for(var i=0;i<xArray.length;i++){
+            if(xArray[i]===thisX && yArray[i]===thisY){
+                xArray.splice(i,1);
+                yArray.splice(i,1);
+                break;
+            }
+        }
+
+        localStorage.setItem('xArray', JSON.stringify(xArray));
+        localStorage.setItem('yArray', JSON.stringify(yArray));
+
+        Plotly.newPlot(graph_,data_graph,layout);
+    }
+
+    function resetData(){
+        localStorage.clear();
+
+        document.querySelectorAll(".tasks").forEach(function (item){
+            var thisX = document.getElementById('pfp').value;
+            var thisY = document.getElementById('ipp').value;
+
+            xArray.push(thisX);
+            yArray.push(thisY);
+
+            localStorage.setItem('xArray', JSON.stringify(xArray));
+            localStorage.setItem('yArray', JSON.stringify(yArray));
+
+            Plotly.newPlot(graph_,data_graph,layout);
+        });
+    }
 </script>
 </body>
 </html>
