@@ -68,6 +68,8 @@
                 -->
                 <th:block th:each="task : ${tasks}">
                     <div class="tasks">
+                        <input type="hidden" id="doneInput" th:value="${task.done}">
+                        <input type="hidden" id="weeklyInput" th:value="${task.isWeeklybox}">
                         <p>
                             <span>선호도 </span>
                             <span th:text="${task.preferencePoint}"></span>
@@ -79,6 +81,7 @@
                             <button id="done_btn" onclick="todoDone(this)"><a th:href="@{/task/done/(id=${task.id})}">완료</a></button>
                             <button id="del_btn"><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button>
                             <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}"></a>미루기</button>
+                            <button id="comeback" style="display: none"><a th:href="@{/weeklybox/comeback/(id=${task.id})}"></a></button>
                         </p>
                     </div>
                 </th:block>
@@ -151,7 +154,26 @@
         document.getElementById('date').innerHTML = " "+date+"일";
     }
 
-    //완료
+    //완료,weeklybox
+    document.querySelectorAll(".tasks").forEach(function (item){
+        var done = document.getElementById("doneInput").value;
+        var isWeekly = document.getElementById("weeklyInput").value;
+        var button = item.querySelector("#done_btn");
+        console.log("Done: ",done);
+        console.log("IsWeekly:",isWeekly);
+
+        if(done==="true"){
+            item.style.backgroundColor="#D9D9D9";
+            item.style.textDecoration="line-through"
+            button.style.display="none"
+        }
+        if(isWeekly==="true"){
+            var postBtn = item.querySelector("#post_btn");
+            var comeback = item.querySelector("#comeback");
+            postBtn.style.display="none";
+            comeback.style.display="block";
+        }
+    });
 
 
     //그래프

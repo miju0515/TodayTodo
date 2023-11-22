@@ -110,7 +110,7 @@
     text-decoration-line: none;
 }
 
-#del_btn, #done_btn, #post_btn{
+#del_btn, #done_btn, #post_btn, #comeback{
     margin: 5px;
     width: 120px;
     height: 28px;
@@ -170,7 +170,7 @@ th,td{
     color: white;
 }
 
-#post_btn:visited, #done_btn:visited, #del_btn:visited{
+#post_btn:visited, #done_btn:visited, #del_btn:visited, #comeback:visited{
     color: #50AF76;
 }
 
