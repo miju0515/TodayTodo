@@ -81,10 +81,10 @@
                         </p>
                         <p th:text="${task.task}" id="tasktext"></p>
                         <p>
-                            <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}"></a>미루기</button>
+                            <button id="post_btn"><a th:href="@{/task/postpone/(id=${task.id})}">미루기</a></button>
                             <button id="comeback" style="display: none"><a th:href="@{/weeklybox/comeback/(id=${task.id})}"></a></button>
-                            <button id="done_btn"><a th:href="@{/task/done/(id=${task.id})}">완료</a></button>
                             <button id="del_btn" onclick="deleteData()" ><a th:href="@{/task/delete/(id=${task.id})}">삭제</a></button>
+                            <button id="done_btn"><a th:href="@{/task/done/(id=${task.id})}">완료</a></button>
                         </p>
                     </div>
                 </th:block>
