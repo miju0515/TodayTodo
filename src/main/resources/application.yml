@@ -27,5 +27,5 @@ spring:
     allow-bean-definition-overriding: true
 
 server:
-  address: 3.38.81.31
+  address: 43.202.103.159
   port: 8081
