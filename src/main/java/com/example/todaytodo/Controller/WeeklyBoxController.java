@@ -2,6 +2,7 @@ package com.example.todaytodo.Controller;
 
 import com.example.todaytodo.Dto.UserWeeklyBoxDto;
 import com.example.todaytodo.Entity.UserWeeklyBox;
+import com.example.todaytodo.Service.SiteUserService;
 import com.example.todaytodo.Service.WeeklyBoxService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,22 +20,28 @@ import java.util.List;
 @RequestMapping("/weeklybox")
 public class WeeklyBoxController {
     private final WeeklyBoxService weeklyBoxService;
+    private final SiteUserService siteUserService;
+    String name;
+    Long userno;
+
 
     @GetMapping("")
-    public String Weeklyhome(){
+    public String Weeklyhome(Principal principal){
+        name = principal.getName();
+        userno = siteUserService.findId(name);
         return "WeeklyBox";
     }
 
     @GetMapping("/view")
     public String viewWeeklyBox(Model model){
-        List<UserWeeklyBox> weeklyBoxes = weeklyBoxService.findAllWeeklyBox(1L);
+        List<UserWeeklyBox> weeklyBoxes = weeklyBoxService.findAllWeeklyBox(userno);
         model.addAttribute("weeklyboxs",weeklyBoxes);
         return "WeeklyBox";
     }
 
     @PostMapping("/add")
     public String addWeeklyBox(UserWeeklyBoxDto userWeeklyBoxDto){
-        weeklyBoxService.addUserWeeklyBox(1L,userWeeklyBoxDto);
+        weeklyBoxService.addUserWeeklyBox(userno,userWeeklyBoxDto);
         return "redirect:/weeklybox/view";
     }
 

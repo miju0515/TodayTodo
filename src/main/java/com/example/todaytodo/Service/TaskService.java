@@ -17,19 +17,20 @@ public class TaskService {
 
     LocalDate now = LocalDate.now();
 
-    public void addTask(TaskDto taskDto){
+    public void addTask(TaskDto taskDto,long userno){
         Task newtask = Task.builder()
                 .task(taskDto.getTask())
                 .preferencePoint(taskDto.getPreference_point())
                 .importancePoint(taskDto.getImportance_point())
                 .date(now)
+                .userno(userno)
                 .build();
         System.out.println(taskDto.getTask());
         jpaTaskRepository.save(newtask);
     }
 
-    public List<Task> findAllTask(LocalDate dateInfo){
-        return jpaTaskRepository.findAllByDate(dateInfo);
+    public List<Task> findAllTask(LocalDate dateInfo,long userno){
+        return jpaTaskRepository.findAllByDateAndUserno(dateInfo,userno);
     }
 
     public void deleteTask(long id){

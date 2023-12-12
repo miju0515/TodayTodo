@@ -16,4 +16,6 @@ public interface JpaTaskRepository extends JpaRepository<Task,Long> {
     Long countByDone(boolean isdone);
 
     List<Task> findAllByDate(LocalDate now);
+
+    List<Task> findAllByDateAndUserno(LocalDate dateInfo,long userno);
 }

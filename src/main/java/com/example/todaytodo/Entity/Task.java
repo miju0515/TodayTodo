@@ -35,9 +35,12 @@ public class Task {
     @Column(name="weeklyId")
     public long weeklyId;
 
+    @Column(name="userno")
+    public long userno;
+
 
     @Builder
-    public Task(String task, int preferencePoint, int importancePoint, LocalDate date, boolean isWeeklybox, long weeklyId){
+    public Task(String task, int preferencePoint, int importancePoint, LocalDate date, boolean isWeeklybox, long weeklyId, long userno){
         this.task = task;
         this.preferencePoint = preferencePoint;
         this.importancePoint = importancePoint;
@@ -45,6 +48,7 @@ public class Task {
         this.isWeeklybox=isWeeklybox;
         this.weeklyId=weeklyId;
         this.done=false;
+        this.userno=userno;
     }
 
     public void setDate(LocalDate date) {

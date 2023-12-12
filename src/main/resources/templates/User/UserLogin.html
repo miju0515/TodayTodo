@@ -11,23 +11,23 @@
         <span id="title">오늘할일</span>
     </div>
     <div>
-        <form action="">
+        <form action="/user/login" method="post">
             <table>
                 <tr>
                     <td>아이디</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="userName" name="userName"></td>
                 </tr>
                 <tr>
                     <td>비밀번호</td>
-                    <td><input type="password"></td>
+                    <td><input type="password" id="password" name="password"></td>
                 </tr>
             </table>
             <button type="submit">로그인</button>
         </form>
         <p>
-            <a href="/User/UserJoin">회원가입</a>
-            <span>아이디찾기</span>
-            <span>비밀번호찾기</span>
+            <a href="/signup">회원가입</a>
+<!--            <span>아이디찾기</span>-->
+<!--            <span>비밀번호찾기</span>-->
         </p>
 
 
