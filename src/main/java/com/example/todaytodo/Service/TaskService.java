@@ -1,8 +1,10 @@
 package com.example.todaytodo.Service;
 
 import com.example.todaytodo.Dto.TaskDto;
+import com.example.todaytodo.Entity.Statistics;
 import com.example.todaytodo.Entity.Task;
 import com.example.todaytodo.Repository.JpaTaskRepository;
+import com.example.todaytodo.Repository.StatisticsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.Optional;
 @Service
 public class TaskService {
     private final JpaTaskRepository jpaTaskRepository;
+    private final StatisticsRepository statisticsRepository;
 
     LocalDate now = LocalDate.now();
 
@@ -38,11 +41,20 @@ public class TaskService {
         jpaTaskRepository.delete(thistask);
     }
 
-    public void postponeTask(long id,LocalDate dateInfo){
+    public void postponeTask(long id,LocalDate dateInfo,long userno){
         Task thistask = findTask(id);
 
         LocalDate next = dateInfo.plusDays(1);
         thistask.setDate(next);
+
+//        Optional<Statistics> _statistics = statisticsRepository.findByUserno(userno);
+//        if(_statistics.isEmpty()){
+//            throw new RuntimeException();
+//        }
+//        Statistics statistics = _statistics.get();
+//        long count = statistics.getPostpone();
+//        statistics.setPostpone(count++);
+//        statisticsRepository.save(statistics);
 
         jpaTaskRepository.save(thistask);
     }
@@ -55,10 +67,24 @@ public class TaskService {
         return jpaTaskRepository.findAllByDateOrderByImportancePoint(now);
     }
 
-    public Long todayAchievement(){
-        Long done = jpaTaskRepository.countByDone(true);
-        Long all = jpaTaskRepository.count();
+    public long todayAchievement(long userno){
+        Long done = jpaTaskRepository.countByDoneAndUsernoAndDate(true,userno,now);
+        Long all = jpaTaskRepository.countByUsernoAndDate(userno,now);
+        if(all==0){
+            return 0;
+        }
+        return done/all*100;
+    }
 
+    public Long countPostpone(long userno){
+        Optional<Statistics> _statistics = statisticsRepository.findByUserno(userno);
+        Statistics statistics = _statistics.get();
+        return statistics.getPostpone();
+    }
+
+    public Long totalAchievement(long userno){
+        Long done = jpaTaskRepository.countByDoneAndUserno(true, userno);
+        Long all = jpaTaskRepository.countByUserno(userno);
         return done/all*100;
     }
 

@@ -1,3 +1,12 @@
+a {
+    text-decoration:none;
+    color: black;
+}
+
+#nickname{
+    text-size: 48pt;
+    font-weight: bold;
+}
 .container{
     height: 900px;
 }
@@ -166,7 +175,7 @@ th,td{
     border-radius: 10px;
 }
 
-#weeklyTitle{
+#weeklyTitle, #statisticsTitle{
     font-size: 20px;
     font-weight: bold;
     text-align: center;
@@ -217,4 +226,15 @@ th,td{
     margin: 10px;
     border-radius: 10px;
     background-color: white;
+}
+#statistics{
+    margin-top: 20px;
+}
+
+#static_left, #static_right{
+    width: 44%;
+    float: left;
+}
+#static_left{
+    text-align:right;
 }

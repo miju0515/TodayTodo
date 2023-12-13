@@ -38,7 +38,7 @@ public class SiteUserService implements UserDetailsService {
         Optional<SiteUser> findUser = siteUserRepository.findById(1L);
         if(!findUser.isPresent()){
             SiteUser siteUser = SiteUser.builder()
-                    .userName("master")
+                    .username("master")
                     .password("1234")
                     .nickname("마스터")
                     .build();
@@ -52,7 +52,7 @@ public class SiteUserService implements UserDetailsService {
 
     public void create(SiteUserDto siteUserDto){
         SiteUser siteUser = SiteUser.builder()
-                .userName(siteUserDto.getUserName())
+                .username(siteUserDto.getUsername())
                 .password(passwordEncoder.encode(siteUserDto.getPassword()))
                 .nickname((siteUserDto.getNickname()))
                 .build();
@@ -62,22 +62,29 @@ public class SiteUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<SiteUser> _siteUser = this.siteUserRepository.findByUserName(username);
+        System.out.println("find user:"+username);
+        Optional<SiteUser> _siteUser = this.siteUserRepository.findByUsername(username);
         if (_siteUser.isEmpty()) {
+            System.out.println("not found");
             throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
         }
         SiteUser siteUser = _siteUser.get();
+        System.out.println(siteUser.getUsername());
         List<GrantedAuthority> authorities = new ArrayList<>();
         if ("admin".equals(username)) {
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
-        return new User(siteUser.getUserName(), siteUser.getPassword(), authorities);
+        return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
+    }
+
+    public void check(LoginDto loginDto){
+        System.out.println("name: "+loginDto.getUsername()+" pwd: "+loginDto.getPassword());
     }
 
     public long findId(String username){
-        Optional<SiteUser> _siteUser = siteUserRepository.findByUserName(username);
+        Optional<SiteUser> _siteUser = siteUserRepository.findByUsername(username);
         if (_siteUser.isEmpty()) {
             throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
         }

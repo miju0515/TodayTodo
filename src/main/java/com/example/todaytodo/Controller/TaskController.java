@@ -52,8 +52,10 @@ public class TaskController {
         int date = Integer.valueOf(now.format(DateTimeFormatter.ofPattern("dd")));
         model.addAttribute("date",date);
 
-        long achievement = taskService.todayAchievement();
+        long achievement = taskService.todayAchievement(userno);
         model.addAttribute("achievement", achievement);
+
+        model.addAttribute("nickname",name);
         return "Task/mainPage";
     }
 
@@ -65,7 +67,7 @@ public class TaskController {
 
     @GetMapping("/postpone")
     public String postponeTask(long id){
-        taskService.postponeTask(id,now);
+        taskService.postponeTask(id,now,userno);
         return "redirect:/task/group";
     }
 

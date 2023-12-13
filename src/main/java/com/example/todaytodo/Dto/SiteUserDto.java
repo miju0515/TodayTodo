@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class SiteUserDto {
     @NotEmpty
-    String userName;
+    String username;
     @NotEmpty
     String password;
     @NotEmpty

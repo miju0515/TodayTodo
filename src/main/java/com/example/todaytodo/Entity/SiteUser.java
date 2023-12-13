@@ -15,7 +15,7 @@ public class SiteUser {
     private long userno;
 
     @Column(unique = true)
-    private String userName;
+    private String username;
 
     private String password;
 
@@ -23,8 +23,8 @@ public class SiteUser {
     private String nickname;
 
     @Builder
-    public SiteUser(String userName, String password, String nickname){
-        this.userName = userName;
+    public SiteUser(String username, String password, String nickname){
+        this.username = username;
         this.password = password;
         this.nickname = nickname;
     }

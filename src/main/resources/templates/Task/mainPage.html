@@ -7,11 +7,11 @@
 </head>
 <body>
 <div class="leftmain">
-    <p>닉네임</p>
+    <p th:text="${nickname}" id="nickname">닉네임</p>
     <button id="movetoWeekly"><a href="/weeklybox/view">이주의박스</a></button>
-    <p>통계</p>
-    <p>설정</p>
-    <p><button onclick="resetData()">reset</button></p>
+    <p><a href="/statistics/">통계</a></p>
+<!--    <p>설정</p>-->
+<!--    <p><button onclick="resetData()">reset</button></p>-->
 </div>
 <div class="container">
     <div class="setting_div">
@@ -159,8 +159,8 @@
     // }
     //
     // //완료,weeklybox
-    // document.querySelectorAll(".tasks").forEach(function (item){
-    //     var done = document.getElementById("doneInput").value;
+        document.querySelectorAll(".tasks").forEach(function (item){
+        var done = document.getElementById("doneInput").value;
         var isWeekly = document.getElementById("weeklyInput").value;
         var button = item.querySelector("#done_btn");
 
